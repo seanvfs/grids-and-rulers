@@ -7,6 +7,7 @@ import Button      from './element/Button.js'
 import KeyConfig   from './element/KeyConfig.js'
 import GridConfig  from './element/GridConfig.js'
 import RulerConfig from './element/RulerConfig.js'
+import FileInput   from './element/FileInput.js'
 
 // Set up state binding
 // ----------------------------------------------------------------------------
@@ -49,6 +50,18 @@ function App (msg) {
       ${Button({
         type: 'add', label: _('BtnAddRulerV'),
         action: () => { state.ui.ruler.add('vertical') }
+      })}
+      ${Button({
+        type: 'export', label: _('BtnExportRulers'),
+        action: () => { state.ui.ruler.exportall() }
+      })}
+      ${Button({
+        type: 'import', label: _('BtnImportRulers'),
+        action: () => { state.ui.ruler.importrulers() }
+      })}
+      ${FileInput({
+        type: 'hidden',
+        action: () => { state.ui.ruler.handleFileSelect() }
       })}
       </p>
 

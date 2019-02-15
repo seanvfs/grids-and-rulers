@@ -28,3 +28,7 @@ p {
   margin: 1rem;
   max-width: 30rem;
 }
+
+.hidden {
+  display: none;
+}

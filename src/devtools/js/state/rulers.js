@@ -49,6 +49,74 @@ function remove (e) {
   AppManager.ruler.remove(e.target.value)
 }
 
+function exportall () {
+    if (!AppManager.state.rulers) { return }
+
+    // get all rulers
+    let _rulers = AppManager.state.rulers;
+
+    // convert to JSON
+    let _json_output = JSON.stringify( _rulers );
+
+    // initiate user download
+    var exportName = 'rulers';
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent( _json_output );
+    var downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("download", exportName + ".json");
+    document.body.appendChild(downloadAnchorNode); // required for firefox
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+function importrulers () {
+    // add event listener to file input to handle file processing
+    var _file_input = document.getElementById('import_input');
+    _file_input.addEventListener('change', handleFileSelect, true);
+    // trigger file input to browse for file
+    _file_input.click();
+}
+
+function handleFileSelect () {
+    var _file_input = document.getElementById('import_input');
+    if( _file_input.value == '' ) {
+      return false;
+    }
+    console.log('importing rulers');
+    var files = _file_input.files; // FileList object
+    var output = [];
+    for (var i = 0, f; f = files[i]; i++) {
+        var reader = new FileReader();
+        // Closure to capture the file information.
+        reader.onload = (function (theFile) {
+            return function (e) {
+                //console.log('e readAsText = ', e);
+                //console.log('e readAsText target = ', e.target);
+                try {
+                    var json = JSON.parse(e.target.result);
+                    //console.log(json);
+                    // loop over imported data and add rulers
+                    for(var i in json) {
+                      var orientation = json[i].orientation;
+                      AppManager.ruler.add({
+                        id: `r${Math.random().toString(36).substr(2, 9)}`,
+                        active:      json[i].active,
+                        color:       json[i].color,
+                        opacity:     json[i].opacity,
+                        position:    json[i].position,
+                        orientation
+                      });
+                    }
+                    // success/fail message?
+                } catch (ex) {
+                    alert('exception when trying to parse json = ' + ex);
+                }
+            }
+        })(f);
+        reader.readAsText(f);
+    }
+}
+
 // Bind actions to state
 // ----------------------------------------------------------------------------
-AppManager.state.ui.ruler = { add, toggle, remove, update }
+AppManager.state.ui.ruler = { add, toggle, remove, update, exportall, importrulers, handleFileSelect }

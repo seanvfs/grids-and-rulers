@@ -8,7 +8,7 @@
 
   "GridDescription":      { "message": "Create grids that overlay your page. Each grid is a regular pattern of columns and rows with gutters and row separators. They can be freely positioned and constrained to suites your needs." },
   "RulerDescription":     { "message": "Create rulers over your content to get custom markings and measurements of your layout. Each ruler can be set in this panel as well as it can be grabbed and dragged as necessary." },
-  "KeysDescription":     { "message": "Some usual actions can be control with your keyboard. Feel free to custom the keyboard shortcuts to suite you best." },
+  "KeysDescription":      { "message": "Some usual actions can be control with your keyboard. Feel free to custom the keyboard shortcuts to suite you best." },
 
   "BtnAddRulerH":         { "message": "Add a new ruler (horizontal)" },
   "BtnAddRulerV":         { "message": "Add a new ruler (vertical)" },
@@ -17,6 +17,8 @@
   "BtnDeleteGrid":        { "message": "Delete grid" },
   "BtnToggleRuler":       { "message": "Toggle ruler" },
   "BtnDeleteRuler":       { "message": "Delete ruler" },
+  "BtnExportRulers":      { "message": "Export all rulers" },
+  "BtnImportRulers":      { "message": "Import rulers" },
 
   "LabelPosition":        { "message": "Position" },
   "LabelOrientation":     { "message": "Orientation" },
